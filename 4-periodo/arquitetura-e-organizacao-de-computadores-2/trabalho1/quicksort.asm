@@ -1,23 +1,24 @@
 .data
-  vet:	.word	1, 6, 8, 10, 3, 9, 2, 7, 5, 4 
-  strc:	.asciiz	","
+  	vet:	.word	1, 6, 8, 10, 3, 9, 2, 7, 5, 4 
+  	strc:	.asciiz	","
 
 .text
-# teste quicksort
+	
+	# teste quicksort
 	addi	$s0, $zero, 10		#tam
 	
-  la	$a0, vet
+  	la	$a0, vet
 	add	$a1, $zero, $zero
 	addi	$a2, $s0, -1
 	
 	jal	quicksort
 	
 	add	$s1, $zero, $zero
-  la	$s2, vet
+  	la	$s2, vet
 	
-WHILEMAIN:	
-  slt	$t0, $s1, $s0
-	beq	$t0, $zero, SAIM
+WHILE_MAIN:	
+  	slt	$t0, $s1, $s0
+	beq	$t0, $zero, SAI_MAIN
 	
 	la	$a0, strc
 	li	$v0, 4
@@ -30,8 +31,8 @@ WHILEMAIN:
 	addi	$s1, $s1, 1
 	addi	$s2, $s2, 4
 	
-	j	WHILEMAIN		
-SAIMAIN:
+	j	WHILE_MAIN		
+SAI_MAIN:
 
 	# termina o programa
 	li	$v0, 10
@@ -82,12 +83,12 @@ quicksort:
 	lw	$s4, 0($t3)		# s4 <- pivo (v[(IniVet + FimVet) div 2])
 	
 WHILE1:	
-  sle	$t0, $s0, $s1		# while(i <= j)
+  	sle	$t0, $s0, $s1		# while(i <= j)
 	beq	$t0, $zero, SAI1
 	# corpo while1 ------------
 	
 WHILE2:	
-  lw	$t0, 0($s2)		# while(v[i] < pivo)
+  	lw	$t0, 0($s2)		# while(v[i] < pivo)
 	slt	$t1, $t0, $s4
 	beq	$t1, $zero, SAI2
 	
@@ -98,7 +99,7 @@ WHILE2:
 SAI2:
 
 WHILE3:	
-  lw	$t0, 0($s3)		# while(v[j] > pivo)
+  	lw	$t0, 0($s3)		# while(v[j] > pivo)
 	sgt	$t1, $t0, $s4
 	beq	$t1, $zero, SAI3
 	
@@ -109,11 +110,11 @@ WHILE3:
 SAI3:
 
 IF1:	
-  sle	$t0, $s0, $s1		# if(i <= j)
+  	sle	$t0, $s0, $s1		# if(i <= j)
 	beq	$t0, $zero, SAI4
 	# corpo if ---------------
 	# aux  <- v[i]
-  # v[i] <- v[j]
+  	# v[i] <- v[j]
 	# v[j] <- aux
 	lw	$t0, 0($s2)
 	lw	$t1, 0($s3)
@@ -131,7 +132,7 @@ SAI4:
 	# fim while1 -------------
 SAI1:	
 IF2:	
-  slt	$t0, $s6, $s1		# if(iniVet < j)
+  	slt	$t0, $s6, $s1		# if(iniVet < j)
 	beq	$t0, $zero, SAI5
 	
 	add	$a1, $zero, $s6
@@ -140,7 +141,7 @@ IF2:
 	jal	quicksort		# quicksort(v, iniVet, j)	
 SAI5:
 IF3:	
-  slt	$t0, $s0, $s7		# if(i < fimVet)
+  	slt	$t0, $s0, $s7		# if(i < fimVet)
 	beq	$t0, $zero, SAI6
 	
 	add	$a1, $zero, $s0
